@@ -3,140 +3,210 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Form LHP Kegiatan Positif</title>
+<title>Form LHP Kegiatan Positif — AKPOL</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --navy:   #1A3C6B;
-    --navy2:  #2A5298;
-    --accent: #2D6FD4;
-    --green:  #1E6B45;
-    --bg:     #EEF2F9;
-    --card:   #FFFFFF;
-    --border: #C8D6EE;
-    --text:   #1C2B4A;
-    --muted:  #6B7A99;
-    --danger: #C0392B;
-    --success:#1E7A4A;
-    --radius: 8px;
+    --primary:  #111111;
+    --navy:     #0D2B45;
+    --accent:   #D4AF37;
+    --accent2:  #b8941e;
+    --white:    #FFFFFF;
+    --surface:  #F3F4F6;
+    --text:     #2B2B2B;
+    --muted:    #6B7280;
+    --border:   #D1D5DB;
+    --danger:   #B91C1C;
+    --success:  #15803D;
+    --readonly: #E9EAEC;
+    --radius:   8px;
   }
 
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg);
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--surface);
          color: var(--text); min-height: 100vh; }
 
   /* ── Header ── */
-  header { background: var(--navy); color: #fff; padding: 0 24px;
-           display: flex; align-items: center; gap: 14px; height: 60px;
-           position: sticky; top: 0; z-index: 100;
-           box-shadow: 0 2px 8px rgba(0,0,0,.25); }
-  header span.icon { font-size: 26px; }
-  header h1 { font-size: 18px; font-weight: 700; letter-spacing: .5px; }
-  header .sub { margin-left: auto; font-size: 12px; color: #A8C4E8; }
+  header {
+    background: var(--primary);
+    color: var(--white);
+    padding: 0 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 68px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,.5);
+    border-bottom: 3px solid var(--accent);
+  }
+  header img.logo { height: 46px; width: 46px; object-fit: contain; flex-shrink: 0; }
+  header .hdr-text { display: flex; flex-direction: column; gap: 1px; }
+  header .hdr-title { font-size: 16px; font-weight: 800; letter-spacing: .6px;
+                      color: var(--white); line-height: 1.2; }
+  header .hdr-sub   { font-size: 11px; color: var(--accent); font-weight: 500;
+                      letter-spacing: .8px; text-transform: uppercase; }
+  header .hdr-badge { margin-left: auto; font-size: 11px; color: var(--accent);
+                      border: 1px solid var(--accent); border-radius: 4px;
+                      padding: 3px 10px; font-weight: 600; letter-spacing: .5px;
+                      white-space: nowrap; }
+
+  /* ── Gold divider accent ── */
+  .gold-bar { height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent));
+              margin-bottom: 24px; border-radius: 0 0 2px 2px; }
 
   /* ── Layout ── */
-  main { max-width: 860px; margin: 28px auto; padding: 0 16px 60px; }
+  main { max-width: 880px; margin: 0 auto; padding: 28px 16px 60px; }
 
   /* ── Section card ── */
-  .card { background: var(--card); border: 1px solid var(--border);
+  .card { background: var(--white); border: 1px solid var(--border);
           border-radius: var(--radius); margin-bottom: 20px;
-          overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
-  .card-header { background: var(--navy); color: #fff; padding: 10px 18px;
-                 font-weight: 600; font-size: 13px; display: flex;
-                 align-items: center; gap: 8px; }
-  .card-header.green  { background: var(--green); }
-  .card-header.navy2  { background: #3A5A8A; }
-  .card-header .badge { margin-left: auto; font-size: 11px;
-                        color: #A8C4E8; font-weight: 400; }
+          overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,.07); }
+
+  .card-header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 11px 18px;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-left: 4px solid var(--accent);
+  }
+  .card-header.gold  { background: var(--primary); border-left-color: var(--accent); }
+  .card-header.dark  { background: #1a1a1a;        border-left-color: var(--accent); }
+  .card-header .badge { margin-left: auto; font-size: 10px; color: var(--accent);
+                        font-weight: 600; letter-spacing: .4px;
+                        border: 1px solid var(--accent); border-radius: 3px;
+                        padding: 2px 8px; text-transform: none; }
 
   /* ── Grid ── */
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px;
           padding: 18px 20px 14px; }
   .grid.three { grid-template-columns: 1fr 1fr 1fr; }
-  @media(max-width:600px){
+  @media(max-width:620px){
     .grid, .grid.three { grid-template-columns: 1fr; }
   }
 
   /* ── Field ── */
-  .field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
-  .field label { font-size: 11px; font-weight: 700; color: var(--text);
-                 text-transform: uppercase; letter-spacing: .4px; }
-  .field input { border: 1.5px solid var(--border); border-radius: 5px;
-                 padding: 8px 10px; font-size: 13px; background: #F7F9FE;
-                 color: var(--text); transition: border-color .15s, box-shadow .15s;
-                 width: 100%; }
-  .field input:focus { outline: none; border-color: var(--accent);
-                       box-shadow: 0 0 0 3px rgba(45,111,212,.15); }
-  .field input.readonly { background: #EEF2FA; color: var(--text);
-                          cursor: default; font-style: italic; }
-  .field input.error { border-color: var(--danger); background: #FFF5F5; }
+  .field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+  .field label {
+    font-size: 10px; font-weight: 800; color: var(--navy);
+    text-transform: uppercase; letter-spacing: .6px;
+  }
+  .field input, .field select {
+    border: 1.5px solid var(--border); border-radius: 5px;
+    padding: 8px 11px; font-size: 13px; background: var(--surface);
+    color: var(--text); transition: border-color .15s, box-shadow .15s;
+    width: 100%; font-family: inherit;
+  }
+  .field input:focus, .field select:focus {
+    outline: none; border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(212,175,55,.18);
+    background: var(--white);
+  }
+  .field input:not(.readonly) { text-transform: uppercase; }
+  .field select { text-transform: uppercase; cursor: pointer; }
+  .field input.readonly {
+    background: var(--readonly); color: var(--muted);
+    cursor: default; font-style: italic; border-color: #E5E7EB;
+  }
+
+  /* ── Separator labels inside Komando ── */
+  .section-sep {
+    font-size: 10px; font-weight: 800; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 1px;
+    padding: 8px 20px 4px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-sep::after { content:''; flex:1; height:1px; background: var(--border); }
 
   /* ── Komando status bar ── */
-  #komando-status { font-size: 12px; padding: 6px 20px 10px;
-                    color: var(--muted); font-style: italic; }
-  #komando-status.ok  { color: var(--success); font-style: normal; font-weight: 600; }
-  #komando-status.err { color: var(--danger);  font-style: normal; }
+  #komando-status {
+    font-size: 12px; padding: 6px 20px 2px;
+    color: var(--muted); font-style: italic;
+  }
+  #komando-status.ok  { color: var(--success); font-style:normal; font-weight:700; }
+  #komando-status.err { color: var(--danger);  font-style:normal; font-weight:600; }
 
   /* ── Image upload ── */
-  .foto-grid { display: grid; grid-template-columns: repeat(4, 1fr);
-               gap: 12px; padding: 16px 20px; }
+  .foto-grid { display: grid; grid-template-columns: repeat(4,1fr);
+               gap: 14px; padding: 18px 20px; }
   @media(max-width:600px){ .foto-grid { grid-template-columns: 1fr 1fr; } }
 
   .foto-slot { display: flex; flex-direction: column; gap: 6px; }
-  .foto-preview { width: 100%; aspect-ratio: 4/3; border: 2px dashed var(--border);
-                  border-radius: 6px; background: #F0F4FB; cursor: pointer;
-                  display: flex; flex-direction: column; align-items: center;
-                  justify-content: center; font-size: 11px; color: var(--muted);
-                  overflow: hidden; position: relative;
-                  transition: border-color .15s, background .15s; }
-  .foto-preview:hover { border-color: var(--accent); background: #E8EFFC; }
-  .foto-preview img { width: 100%; height: 100%; object-fit: cover; }
-  .foto-preview .plus { font-size: 28px; line-height: 1; color: var(--border); }
-  .foto-preview input[type=file] { position: absolute; inset: 0;
-                                    opacity: 0; cursor: pointer; }
-  .foto-label { font-size: 11px; font-weight: 700; color: var(--text); text-align: center; }
-  .btn-clear { font-size: 11px; padding: 3px 0; background: #E74C3C; color: #fff;
-               border: none; border-radius: 4px; cursor: pointer; width: 100%; }
-  .btn-clear:hover { background: #C0392B; }
+  .foto-preview {
+    width: 100%; aspect-ratio: 4/3;
+    border: 2px dashed var(--border); border-radius: 6px;
+    background: var(--surface); cursor: pointer;
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; font-size: 11px; color: var(--muted);
+    overflow: hidden; position: relative;
+    transition: border-color .15s, background .15s;
+  }
+  .foto-preview:hover { border-color: var(--accent); background: #fdf8e8; }
+  .foto-preview img   { width:100%; height:100%; object-fit:cover; }
+  .foto-preview .plus { font-size: 26px; line-height: 1; color: #C9CDD4; }
+  .foto-label { font-size: 10px; font-weight: 800; color: var(--navy);
+                text-align: center; text-transform: uppercase; letter-spacing: .5px; }
+  .btn-clear { font-size: 11px; padding: 4px 0; background: var(--danger); color:#fff;
+               border:none; border-radius:4px; cursor:pointer; width:100%;
+               font-weight: 600; transition: background .15s; }
+  .btn-clear:hover { background: #991B1B; }
 
-  /* ── Template row ── */
-  .tpl-row { display: flex; gap: 10px; padding: 14px 20px; align-items: center; }
-  .tpl-row input { flex: 1; border: 1.5px solid var(--border); border-radius: 5px;
-                   padding: 8px 10px; font-size: 13px; background: #F7F9FE; color: var(--muted); }
+  /* ── Submit area ── */
+  .submit-area { padding: 20px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); color: var(--primary); border: none;
+    border-radius: 6px; padding: 12px 30px; font-size: 14px;
+    font-weight: 800; cursor: pointer; transition: background .15s, transform .1s;
+    display: flex; align-items: center; gap: 8px; letter-spacing: .3px;
+    box-shadow: 0 2px 8px rgba(212,175,55,.35);
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-primary:disabled { background: #C9CDD4; color: #888; cursor:not-allowed;
+                          box-shadow: none; transform: none; }
+  .btn-reset {
+    background: transparent; color: var(--danger); border: 1.5px solid var(--danger);
+    border-radius: 6px; padding: 12px 22px; font-size: 14px;
+    font-weight: 700; cursor: pointer; transition: background .15s;
+  }
+  .btn-reset:hover { background: var(--danger); color: #fff; }
 
-  /* ── Submit ── */
-  .actions { display: flex; gap: 12px; padding: 6px 0 0; }
-  .btn-primary { background: var(--accent); color: #fff; border: none;
-                 border-radius: 6px; padding: 12px 28px; font-size: 14px;
-                 font-weight: 700; cursor: pointer; transition: background .15s;
-                 display: flex; align-items: center; gap: 8px; }
-  .btn-primary:hover { background: #1A5BBE; }
-  .btn-primary:disabled { background: #9BAEC8; cursor: not-allowed; }
-  .btn-reset { background: #E74C3C; color: #fff; border: none;
-               border-radius: 6px; padding: 12px 22px; font-size: 14px;
-               font-weight: 700; cursor: pointer; transition: background .15s; }
-  .btn-reset:hover { background: #C0392B; }
-
-  /* ── Status / toast ── */
+  /* ── Status ── */
   #status { margin-top: 14px; font-size: 13px; min-height: 20px;
-            font-weight: 600; padding: 0 2px; }
+            font-weight: 700; padding: 0 2px; }
   #status.ok  { color: var(--success); }
   #status.err { color: var(--danger); }
 
   /* ── Spinner ── */
-  .spinner { display: none; width: 18px; height: 18px; border: 3px solid #ffffff55;
-             border-top-color: #fff; border-radius: 50%;
-             animation: spin .7s linear infinite; }
+  .spinner { display:none; width:18px; height:18px;
+             border:3px solid rgba(17,17,17,.3); border-top-color: var(--primary);
+             border-radius:50%; animation:spin .7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Footer ── */
+  footer { text-align:center; font-size:11px; color: var(--muted);
+           padding: 16px; border-top: 1px solid var(--border);
+           background: var(--white); margin-top: 20px; }
 </style>
 </head>
 <body>
 
 <header>
-  <span class="icon">📄</span>
-  <h1>Form LHP Kegiatan Positif</h1>
-  <span class="sub">Output: .docx (Word)</span>
+  <img class="logo" src="/static/logo.png" alt="AKPOL Logo">
+  <div class="hdr-text">
+    <div class="hdr-title">Form LHP Kegiatan Positif</div>
+    <div class="hdr-sub">Akademi Kepolisian — Batalyon Manggala Satya</div>
+  </div>
+  <div class="hdr-badge">Output: .docx</div>
 </header>
+<div class="gold-bar"></div>
 
 <main>
 <form id="lhp-form" enctype="multipart/form-data">
@@ -146,11 +216,14 @@
     <div class="card-header">👤 Data Pribadi</div>
     <div class="grid">
       <div class="field"><label>Nama</label>
-        <input type="text" name="Nama" placeholder="Nama lengkap taruna" required></div>
+        <input type="text" name="Nama" placeholder="NAMA LENGKAP TARUNA" required></div>
       <div class="field"><label>No Ak</label>
-        <input type="text" name="No Ak" placeholder="No. Akademi panjang" required></div>
+        <input type="text" name="No Ak" placeholder="NO. AKADEMI PANJANG" required></div>
       <div class="field"><label>Pangkat</label>
-        <input type="text" name="Pangkat" placeholder="cth. BHAYANGKARA TARUNA" required></div>
+        <select name="Pangkat" required>
+          <option value="BHAYANGKARA TARUNA">BHAYANGKARA TARUNA</option>
+          <option value="AJUN BRIGADIR TARUNA">AJUN BRIGADIR TARUNA</option>
+        </select></div>
       <div class="field"><label>Peleton</label>
         <input type="number" name="Peleton" id="f-peleton" placeholder="cth. 2" min="1" required></div>
       <div class="field"><label>Kompi</label>
@@ -160,40 +233,30 @@
 
   <!-- ── Data Komando ── -->
   <div class="card">
-    <div class="card-header">
+    <div class="card-header dark">
       🪖 Data Komando
-      <span class="badge">otomatis dari Excel</span>
+      <span class="badge">Otomatis dari Excel</span>
     </div>
     <div id="komando-status">— Isi Peleton &amp; Kompi untuk memuat data —</div>
-    <div style="padding: 0 20px;">
-      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;
-                  letter-spacing:.4px;margin-bottom:8px;">── Danton ──</div>
-    </div>
+
+    <div class="section-sep">Danton</div>
     <div class="grid three">
       <div class="field"><label>Nama Danton</label>
-        <input class="readonly" type="text" name="Nama Danton" id="f-nama-danton"
-               readonly placeholder="—"></div>
+        <input class="readonly" type="text" name="Nama Danton" id="f-nama-danton" readonly placeholder="—"></div>
       <div class="field"><label>Pangkat Danton</label>
-        <input class="readonly" type="text" name="Pangkat Danton" id="f-pangkat-danton"
-               readonly placeholder="—"></div>
+        <input class="readonly" type="text" name="Pangkat Danton" id="f-pangkat-danton" readonly placeholder="—"></div>
       <div class="field"><label>NRP Danton</label>
-        <input class="readonly" type="text" name="NRP Danton" id="f-nrp-danton"
-               readonly placeholder="—"></div>
+        <input class="readonly" type="text" name="NRP Danton" id="f-nrp-danton" readonly placeholder="—"></div>
     </div>
-    <div style="padding: 0 20px;">
-      <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;
-                  letter-spacing:.4px;margin-bottom:8px;">── Danki ──</div>
-    </div>
+
+    <div class="section-sep">Danki</div>
     <div class="grid three" style="padding-top:0">
       <div class="field"><label>Nama Danki</label>
-        <input class="readonly" type="text" name="Nama Danki" id="f-nama-danki"
-               readonly placeholder="—"></div>
+        <input class="readonly" type="text" name="Nama Danki" id="f-nama-danki" readonly placeholder="—"></div>
       <div class="field"><label>Pangkat Danki</label>
-        <input class="readonly" type="text" name="Pangkat Danki" id="f-pangkat-danki"
-               readonly placeholder="—"></div>
+        <input class="readonly" type="text" name="Pangkat Danki" id="f-pangkat-danki" readonly placeholder="—"></div>
       <div class="field"><label>NRP Danki</label>
-        <input class="readonly" type="text" name="NRP Danki" id="f-nrp-danki"
-               readonly placeholder="—"></div>
+        <input class="readonly" type="text" name="NRP Danki" id="f-nrp-danki" readonly placeholder="—"></div>
     </div>
   </div>
 
@@ -202,27 +265,26 @@
     <div class="card-header">📌 Data Kegiatan</div>
     <div class="grid">
       <div class="field"><label>Nama Kegiatan</label>
-        <input type="text" name="Nama Kegiatan" placeholder="Judul kegiatan" required></div>
+        <input type="text" name="Nama Kegiatan" placeholder="JUDUL KEGIATAN" required></div>
       <div class="field"><label>Tanggal Kegiatan</label>
-        <input type="text" name="Tanggal Kegiatan" placeholder="cth. Minggu, 17 Mei 2026" required></div>
+        <input type="text" name="Tanggal Kegiatan" placeholder="cth. MINGGU, 17 MEI 2026" required></div>
       <div class="field"><label>Waktu Kegiatan</label>
         <input type="text" name="Waktu Kegiatan" placeholder="cth. 08.00 WIB" required></div>
       <div class="field"><label>Tempat Kegiatan</label>
-        <input type="text" name="Tempat Kegiatan" placeholder="cth. Lapangan Bhayangkara" required></div>
+        <input type="text" name="Tempat Kegiatan" placeholder="cth. LAPANGAN BHAYANGKARA" required></div>
     </div>
   </div>
 
   <!-- ── Dokumentasi ── -->
   <div class="card">
-    <div class="card-header green">🖼️ Dokumentasi <span class="badge">(maks. 4 gambar)</span></div>
+    <div class="card-header gold">🖼️ Dokumentasi <span class="badge">Maks. 4 Gambar</span></div>
     <div class="foto-grid">
       {% for i in range(1,5) %}
       <div class="foto-slot">
-        <!-- Clickable preview area — never replaced, just updated visually -->
         <div class="foto-preview" id="preview-{{i}}"
              onclick="document.getElementById('foto-input-{{i}}').click()">
           <span class="plus" id="plus-{{i}}">＋</span>
-          <span id="plus-label-{{i}}">Foto {{i}}</span>
+          <span id="plus-label-{{i}}" style="margin-top:4px">Foto {{i}}</span>
           <img id="thumb-{{i}}" src="" alt="" style="display:none;width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="foto-label">Foto {{i}}</div>
@@ -230,7 +292,6 @@
       </div>
       {% endfor %}
     </div>
-    <!-- File inputs kept OUTSIDE the preview divs so they never get wiped -->
     <div style="display:none">
       {% for i in range(1,5) %}
       <input type="file" id="foto-input-{{i}}" name="foto_{{i}}"
@@ -240,21 +301,38 @@
   </div>
 
   <!-- ── Actions ── -->
-  <div class="card" style="padding:20px;">
-    <div class="actions">
-      <button type="submit" class="btn-primary" id="btn-submit">
-        <span class="spinner" id="spinner"></span>
-        💾 Buat Dokumen Word
-      </button>
-      <button type="button" class="btn-reset" onclick="resetForm()">🗑️ Reset Form</button>
+  <div class="card">
+    <div class="submit-area">
+      <div class="actions">
+        <button type="submit" class="btn-primary" id="btn-submit">
+          <span class="spinner" id="spinner"></span>
+          💾 Buat Dokumen Word
+        </button>
+        <button type="button" class="btn-reset" onclick="resetForm()">🗑️ Reset Form</button>
+      </div>
+      <div id="status"></div>
     </div>
-    <div id="status"></div>
   </div>
 
 </form>
 </main>
 
+<footer>Akademi Kepolisian &nbsp;·&nbsp; Batalyon Manggala Satya &nbsp;·&nbsp; Form LHP Kegiatan Positif</footer>
+
 <script>
+// ── Force uppercase on all text inputs ───────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('input[type=text], input[type=number]').forEach(inp => {
+    if (!inp.classList.contains('readonly')) {
+      inp.addEventListener('input', function() {
+        const pos = this.selectionStart;
+        this.value = this.value.toUpperCase();
+        this.setSelectionRange(pos, pos);
+      });
+    }
+  });
+});
+
 // ── Auto-fill Danton/Danki ────────────────────────────────────────────────────
 let lookupTimer = null;
 
@@ -267,9 +345,8 @@ async function doLookup() {
   const peleton = document.getElementById('f-peleton').value.trim();
   const kompi   = document.getElementById('f-kompi').value.trim();
   const status  = document.getElementById('komando-status');
-
-  const fields = ['f-nama-danton','f-pangkat-danton','f-nrp-danton',
-                  'f-nama-danki', 'f-pangkat-danki', 'f-nrp-danki'];
+  const fields  = ['f-nama-danton','f-pangkat-danton','f-nrp-danton',
+                   'f-nama-danki', 'f-pangkat-danki', 'f-nrp-danki'];
 
   if (!peleton || !kompi) {
     fields.forEach(id => document.getElementById(id).value = '');
@@ -281,13 +358,11 @@ async function doLookup() {
   try {
     const res  = await fetch(`/api/lookup?peleton=${peleton}&kompi=${kompi}`);
     const json = await res.json();
-
     if (json.error) {
       status.textContent = '⚠ ' + json.error;
       status.className = 'err';
       return;
     }
-
     const d = json.danton, dk = json.danki;
     document.getElementById('f-nama-danton').value    = d  ? d['Nama Danton']    : '⚠ Tidak ditemukan';
     document.getElementById('f-pangkat-danton').value = d  ? d['Pangkat Danton'] : '';
@@ -313,8 +388,6 @@ document.getElementById('f-peleton').addEventListener('input', triggerLookup);
 document.getElementById('f-kompi').addEventListener('input', triggerLookup);
 
 // ── Image preview ─────────────────────────────────────────────────────────────
-// The <input type="file"> elements are NEVER replaced — only the visual thumb is updated.
-// This ensures FormData always picks up the actual selected file.
 function previewImage(input, idx) {
   if (!input.files[0]) return;
   const reader = new FileReader();
@@ -328,7 +401,6 @@ function previewImage(input, idx) {
 }
 
 function clearImage(idx) {
-  // Reset the file input value so the same file can be re-selected
   const input = document.getElementById(`foto-input-${idx}`);
   input.value = '';
   document.getElementById(`thumb-${idx}`).style.display = 'none';
@@ -360,7 +432,6 @@ document.getElementById('lhp-form').addEventListener('submit', async e => {
       return;
     }
 
-    // Trigger download
     const blob = await res.blob();
     const cd   = res.headers.get('Content-Disposition') || '';
     const name = cd.match(/filename="?([^"]+)"?/)?.[1] || 'LHP.docx';

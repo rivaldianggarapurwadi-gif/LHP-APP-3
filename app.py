@@ -27,6 +27,16 @@ def to_roman(n) -> str:
         while n >= v: r += s; n -= v
     return r or str(n)
 
+# ── Pangkat abbreviation ─────────────────────────────────────────────────────
+
+PANGKAT_SINGKAT = {
+    'BHAYANGKARA TARUNA':   'BHATAR',
+    'AJUN BRIGADIR TARUNA': 'ABRIGTAR',
+}
+
+def pangkat_singkat(p: str) -> str:
+    return PANGKAT_SINGKAT.get(p.upper().strip(), p.upper().strip())
+
 # ── Date / time parsers ───────────────────────────────────────────────────────
 
 MONTHS_ID    = ['','JANUARI','FEBRUARI','MARET','APRIL','MEI','JUNI',
@@ -142,7 +152,8 @@ def _insert_images(doc, placeholder, image_paths):
     for el in to_remove: body.remove(el)
 
 def _fix_signature_formatting(doc, pangkat_danton, nrp_danton,
-                               nama_danki, pangkat_danki, nrp_danki):
+                               nama_danki, pangkat_danki, nrp_danki,
+                               pangkat_abbr='ABRIGTAR'):
     from lxml import etree
     W = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'
     def wtag(n): return f'{{{W}}}{n}'
@@ -161,16 +172,16 @@ def _fix_signature_formatting(doc, pangkat_danton, nrp_danton,
     for para in _all_paragraphs(doc):
         full = ''.join(r.text for r in para.runs if not _has_drawing(r))
         if ('(Nama lengkap dan gelar dankitar)' in full or
-            (nama_danki and nama_danki in full and 'ABRIGTAR' not in full
+            (nama_danki and nama_danki in full and pangkat_abbr not in full
              and 'NRP' not in full and '(Nama lengkap dan gelar dantontar)' not in full)):
             rm_italic(para)
         elif ('(Pangkat danki)' in full or '(NRP Danki)' in full or
               (pangkat_danki and pangkat_danki in full and nrp_danki and
-               nrp_danki in full and 'ABRIGTAR' not in full)):
+               nrp_danki in full and pangkat_abbr not in full)):
             rm_italic(para)
         if ('(Pangkat danton)' in full or '(NRP Danton)' in full or
             (pangkat_danton and pangkat_danton in full and
-             nrp_danton and nrp_danton in full and 'ABRIGTAR' in full)):
+             nrp_danton and nrp_danton in full and pangkat_abbr in full)):
             set_center(para)
 
 # ── Core fill function ────────────────────────────────────────────────────────
@@ -183,6 +194,7 @@ def fill_template(data, image_paths, output_path):
     nama           = data['Nama']
     no_ak          = data['No Ak']
     pangkat        = data['Pangkat'].upper()
+    pangkat_abbr   = pangkat_singkat(pangkat)
     peleton        = data['Peleton']
     kompi_roman    = to_roman(data['Kompi'])
     nama_kegiatan  = data['Nama Kegiatan']
@@ -221,7 +233,7 @@ def fill_template(data, image_paths, output_path):
         '(Nama lengkap dan gelar dantontar)':     nama_danton,
         '(Pangkat danton)':                       pangkat_danton,
         '(NRP Danton)':                           nrp_danton,
-        'ABRIGTAR':                               pangkat,
+        'ABRIGTAR':                               pangkat_abbr,
         '(No Ak ttd)':                            no_ak,
         '(Nama Lengkap)':                         nama,
         'DANKITAR III':                           f'DANKITAR {kompi_roman}',
@@ -231,7 +243,7 @@ def fill_template(data, image_paths, output_path):
         '(tempat ttd)':                           'Semarang',
         '(tanggal buat laporan ttd)':             tanggal_raw,
         '(Nama Lengkap ttd)':                     nama,
-        '(ABRIGTARakhir)':                        pangkat,
+        '(ABRIGTARakhir)':                        pangkat_abbr,
         '(No. Ak. Panjang ttd)':                  no_ak,
     }
 
@@ -251,7 +263,8 @@ def fill_template(data, image_paths, output_path):
         _insert_images(doc, '(Dokumentasi)', valid_imgs)
 
     _fix_signature_formatting(doc, pangkat_danton, nrp_danton,
-                               nama_danki, pangkat_danki, nrp_danki)
+                               nama_danki, pangkat_danki, nrp_danki,
+                               pangkat_abbr)
     doc.save(output_path)
 
 # ── Flask routes ──────────────────────────────────────────────────────────────
